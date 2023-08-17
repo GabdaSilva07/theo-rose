@@ -1,12 +1,12 @@
 import './globals.css'
-import type { Metadata } from 'next'
-import { Lato } from 'next/font/google'
+import type {Metadata} from 'next'
+import {Lato} from 'next/font/google'
 import {ThemeProvider} from "@/components/theme-provider/theme-provider";
 import React from "react";
 import {Navbar} from "@/components/Navbar/Navbar";
 
 
-const lato = Lato({weight: "400", subsets: ['latin'] })
+const lato = Lato({weight: "700", subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
