@@ -63,8 +63,9 @@ const DesktopNav = () => {
                             return (
                                 <Link href={page.path} key={page.path}>
                                     {/*//slide in from left on hover*/}
-                                    <span className={cn("transform-origin-left mx-4 ")}>
+                                    <span className={cn("mx-4 border-b-2 border-opacity-0 ")}>
                                         {page.title}
+
                                     </span>
                                 </Link>
                             );
