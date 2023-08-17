@@ -61,7 +61,7 @@ const DesktopNav = () => {
                     <li className={`cursor-pointer text-xl text-white`}>
                         {siteConfig.pages.map((page: SiteConfig['pages'][0]) => {
                             return (
-                                <Link href={page.path} key={page.path} className={cn(`mx-4 border-b-2 border-b-transparent transition-all duration-200 ease-in hover:border-b-white`)}>
+                                <Link href={page.path} key={page.path} className={cn(`mx-4 animate-slide-in-left border-b-2 border-b-transparent transition-all duration-200 ease-in hover:border-b-white`)}>
                                     <span>
                                         {page.title}
                                     </span>
