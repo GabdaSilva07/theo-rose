@@ -23,7 +23,7 @@ const MobileNav = () => {
 
 
     return (
-        <nav className={`bg-primary flex h-14 w-full justify-between px-2`}>
+        <nav className={`flex h-14 w-full justify-between bg-primary px-2`}>
             <main className={`flex items-center`}>
                 <h1 className={`flex cursor-pointer text-center text-3xl text-white`}>
                     <Link href={`/`}>
@@ -46,7 +46,7 @@ const MobileNav = () => {
 
 const DesktopNav = () => {
     return (
-        <nav className={`bg-primary flex h-16 w-full justify-between px-4`}>
+        <nav className={`flex h-16 w-full justify-between bg-primary px-4`}>
             <main className={`flex items-center`}>
                 <h1 className={`flex cursor-pointer text-center text-3xl text-white`}>
                     <Link href={`/`}>
@@ -61,11 +61,9 @@ const DesktopNav = () => {
                     <li className={`cursor-pointer text-xl text-white`}>
                         {siteConfig.pages.map((page: SiteConfig['pages'][0]) => {
                             return (
-                                <Link href={page.path} key={page.path}>
-                                    {/*//slide in from left on hover*/}
-                                    <span className={cn("mx-4 border-b-2 border-opacity-0 ")}>
+                                <Link href={page.path} key={page.path} className={cn(`mx-4 border-b-2 border-b-transparent transition-all duration-200 ease-in hover:border-b-white`)}>
+                                    <span>
                                         {page.title}
-
                                     </span>
                                 </Link>
                             );
