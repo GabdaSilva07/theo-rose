@@ -58,14 +58,15 @@ const DesktopNav = () => {
             </main>
             <main className={`flex items-center`}>
                 <ul className={`flex items-center`}>
-                    <li className={`cursor-pointer text-xl text-white`}>
+                    <li className={cn(`animate-slideInFromLeft cursor-pointer text-xl text-white`)}>
                         {siteConfig.pages.map((page: SiteConfig['pages'][0]) => {
                             return (
+
                                 <Link
                                     href={page.path}
                                     key={page.path}
                                     className={cn(
-                                        `mx-4 animate-slideInFromRight border-b-2 border-b-transparent transition-all delay-200 duration-200 ease-in hover:border-b-white`)}
+                                        `mx-4 border-b-2 border-b-transparent transition-all delay-200 duration-200 ease-in hover:border-b-white`)}
                                 >
                                   <span>
                                      {page.title}
