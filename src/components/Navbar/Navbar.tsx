@@ -1,17 +1,19 @@
 'use client'
 import {isMobile} from 'react-device-detect'
-import {useLayoutEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import {siteConfig, SiteConfig} from "@/Config/siteConfig";
 import Link from "next/link";
 import {HiOutlineMenu} from "react-icons/hi";
 import {cn} from "@/lib/utils";
 
 export function Navbar() {
-    const [isClient, setIsClient] = useState(false);
+    const [isClient, setIsClient] = useState<boolean>(false);
+
 
     useLayoutEffect(() => {
         setIsClient(true);
     }, []);
+
 
     if (!isClient) return null;
     return isMobile ? <MobileNav/> : <DesktopNav/>;
@@ -45,32 +47,54 @@ const MobileNav = () => {
 }
 
 const DesktopNav = () => {
+
+    const [isScrolled, setIsScrolled] = useState<boolean>(false);
+
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 500) {  // Adjust this value as needed
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <nav className={`flex h-16 w-full justify-between bg-primary px-4`}>
+        <nav className={cn(
+            `fixed top-0 w-full transition-colors duration-300 ease-in-out ${isScrolled ? 'bg-white' : 'bg-primary'} flex h-16 justify-between px-4`)}>
             <main className={`flex items-center`}>
-                <h1 className={`flex cursor-pointer text-center text-3xl text-white`}>
+                <h1 className={`flex cursor-pointer text-center text-3xl ${isScrolled ? 'text-primary' : 'text-white'}`}>
                     <Link href={`/`}>
-                         <span>
-                            {siteConfig.siteName.toUpperCase()}
-                         </span>
+                 <span>
+                    {siteConfig.siteName.toUpperCase()}
+                 </span>
                     </Link>
                 </h1>
             </main>
             <main className={`flex items-center`}>
                 <ul className={`flex items-center`}>
-                    <li className={cn(`animate-slideInFromLeft cursor-pointer text-xl text-white`)}>
+                    <li className={cn(
+                        `animate-slideInFromLeft cursor-pointer text-xl ${isScrolled ? 'text-primary' : 'text-white'}`)}>
                         {siteConfig.pages.map((page: SiteConfig['pages'][0]) => {
                             return (
-
                                 <Link
                                     href={page.path}
                                     key={page.path}
                                     className={cn(
-                                        `mx-4 border-b-2 border-b-transparent transition-all delay-200 duration-200 ease-in hover:border-b-white`)}
+                                        `mx-4 border-b-2 ${isScrolled ? 'border-white hover:border-primary' : 'border-transparent hover:border-white'} transition-all duration-200 ease-in`
+                                    )}
                                 >
-                                  <span>
-                                     {page.title}
-                                  </span>
+                                      <span>
+                                         {page.title}
+                                     </span>
                                 </Link>
                             );
                         })}
@@ -78,6 +102,7 @@ const DesktopNav = () => {
                 </ul>
             </main>
         </nav>
+
     );
 }
 
