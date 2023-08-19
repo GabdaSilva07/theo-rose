@@ -5,11 +5,13 @@ import {siteConfig, SiteConfig} from "@/Config/siteConfig";
 import Link from "next/link";
 import {HiOutlineMenu} from "react-icons/hi";
 import {cn} from "@/lib/utils";
+import {IoClose} from "react-icons/io5";
 
 
 type TMobileNavMenu = {
     isNavOpen?: boolean
     pages: SiteConfig['pages']
+    setIsNavOpen: (isNavOpen: boolean) => void
 }
 
 
@@ -37,27 +39,37 @@ const MobileNav = () => {
                     </Link>
                 </h1>
             </main>
-            <main className={`flex items-center`}>
-                <span className={`cursor-pointer text-4xl text-primary`} onClick={() => {
-                    setNavOpen(!isNavOpen)
-                }}>
-                    <HiOutlineMenu/>
-                </span>
-            </main>
+            {!isNavOpen ?
+                <main className={`flex items-center`}>
+                     <span className={`cursor-pointer text-4xl text-primary`} onClick={() => {
+                         setNavOpen(!isNavOpen)
+                     }}>
+                         <HiOutlineMenu/>
+                     </span>
+                </main> : null}
 
-            {isNavOpen ? <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/> :
-                <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/>}
+
+            {isNavOpen ? <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen} setIsNavOpen={setNavOpen}/> :
+                <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen} setIsNavOpen={setNavOpen}/>}
         </nav>
     );
 }
 
 
-const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
+const MobileNavMenu = ({pages, isNavOpen, setIsNavOpen}: TMobileNavMenu) => {
     return (
         <main className={cn(
             `absolute left-0 h-screen w-full bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
             <ul className={cn(`flex content-center items-center justify-center`)}>
-                <li className={cn(`flex cursor-pointer flex-col gap-4 text-center text-2xl text-white`)}>
+                {isNavOpen ?
+                    <main className={`absolute right-0 top-0 flex items-center`}>
+                          <span className={`cursor-pointer text-5xl text-white`} onClick={() => {
+                              setIsNavOpen(!isNavOpen)
+                          }}>
+                               <IoClose/>
+                        </span>
+                    </main> : null}
+                <li className={cn(`flex cursor-pointer flex-col items-center gap-4 text-2xl text-white`)}>
                     {
                         pages.map((page: SiteConfig['pages'][0]) => {
                             return (
@@ -71,6 +83,7 @@ const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
                     }
                 </li>
             </ul>
+
         </main>
     );
 }
