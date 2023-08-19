@@ -6,6 +6,9 @@ import Link from "next/link";
 import {HiOutlineMenu} from "react-icons/hi";
 import {cn} from "@/lib/utils";
 import {IoClose} from "react-icons/io5";
+import {BiSolidPhone} from "react-icons/bi";
+import {FaLocationDot} from "react-icons/fa6";
+import {BsFillClockFill} from "react-icons/bs";
 
 
 type TMobileNavMenu = {
@@ -57,16 +60,32 @@ const MobileNav = () => {
     );
 }
 
+
 const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
+
+    // Disable scrolling when isNavOpen is true
+    useEffect(() => {
+        if (isNavOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+
+        return () => {
+            document.body.style.overflow = 'auto'; // Reset to default when component unmounts
+        };
+    }, [isNavOpen]);
+
     return (
         <main className={cn(
-            `absolute left-0 flex h-screen w-full items-center justify-center bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
+            `fixed left-0 flex h-screen w-full flex-col items-center justify-center bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
+
             <ul className={cn(`flex flex-col items-center gap-4`)}>
                 {
                     pages.map((page: SiteConfig['pages'][0]) => {
                         return (
                             <li key={page.title} className={cn(`cursor-pointer text-2xl text-white`)}>
-                                <Link href={page.path} key={page.path}>
+                                <Link href={page.path}>
                                     <span>
                                         {page.title}
                                     </span>
@@ -76,6 +95,21 @@ const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
                     })
                 }
             </ul>
+
+            <div className={cn(`absolute bottom-0 flex w-full flex-col justify-end pb-4`)}>
+                <div className={cn(`my-2 flex flex-col items-center`)}>
+                    <span className={cn(`text-white`)}><BiSolidPhone/></span>
+                    <span className={cn(`text-sm text-white`)}>{siteConfig.mobile}</span>
+                </div>
+                <div className={cn(`my-2 flex flex-col items-center`)}>
+                    <span className={cn(`text-white`)}><FaLocationDot/></span>
+                    <span className={cn(`text-sm text-white`)}>{siteConfig.address}</span>
+                </div>
+                <div className={cn(`my-2 flex flex-col items-center`)}>
+                    <span className={cn(`text-white`)}><BsFillClockFill/></span>
+                    <span className={cn(`text-sm text-white`)}>{siteConfig.openingHours}</span>
+                </div>
+            </div>
         </main>
     );
 }
@@ -136,9 +170,7 @@ const DesktopNav = () => {
                     </li>
                 </ul>
             </main>
-            <main>
-                {/*List of icons*/}
-            </main>
+
         </nav>
 
     );
