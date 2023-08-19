@@ -53,34 +53,35 @@ const MobileNav = () => {
 }
 
 
-
-const MobileNavMenu = ({pages, isNavOpen} : TMobileNavMenu) => {
+const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
     return (
-        <main className={cn(`absolute left-0 h-screen w-full bg-black`)}>
-            <div className={cn(`flex items-center`)}>
-                <ul className={cn(`flex items-center justify-center`)}>
-                    <li className={cn(`cursor-pointer text-2xl text-white`)}>
-                        {
-                            pages.map((page: SiteConfig['pages'][0]) => {
-                                return (
-                                    <Link href={page.path} key={page.path}>
+        <>
+            {
+                isNavOpen ? <main className={cn(`absolute left-0 h-screen w-full bg-black`)}>
+                    <div className={cn(`flex items-center`)}>
+                        <ul className={cn(`flex items-center justify-center`)}>
+                            <li className={cn(`cursor-pointer text-2xl text-white`)}>
+                                {
+                                    pages.map((page: SiteConfig['pages'][0]) => {
+                                        return (
+                                            <Link href={page.path} key={page.path}>
                                     <span>
                                         {page.title}
                                     </span>
-                                    </Link>
-                                );
-                            })
-                        }
-                    </li>
-                </ul>
-            </div>
-        </main>
+                                            </Link>
+                                        );
+                                    })
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                </main> : null
+
+            }
+        </>
+
     );
 }
-
-
-
-
 
 
 const DesktopNav = () => {
