@@ -47,7 +47,7 @@ const MobileNav = () => {
                 </span>
             </main>
 
-            {isNavOpen ? <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/> : null}
+            {isNavOpen ? <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/> : <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/>}
         </nav>
     );
 }
@@ -55,31 +55,25 @@ const MobileNav = () => {
 
 const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
     return (
-        <>
-            {
-                isNavOpen ? <main className={cn(`absolute left-0 h-screen w-full bg-black`)}>
-                    <div className={cn(`flex items-center`)}>
-                        <ul className={cn(`flex items-center justify-center`)}>
-                            <li className={cn(`cursor-pointer text-2xl text-white`)}>
-                                {
-                                    pages.map((page: SiteConfig['pages'][0]) => {
-                                        return (
-                                            <Link href={page.path} key={page.path}>
-                                    <span>
-                                        {page.title}
-                                    </span>
-                                            </Link>
-                                        );
-                                    })
-                                }
-                            </li>
-                        </ul>
-                    </div>
-                </main> : null
-
-            }
-        </>
-
+        <main className={cn(`absolute left-0 h-screen w-full bg-black transition-transform duration-300 ease-in-out${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
+            <div className={cn(`flex items-center`)}>
+                <ul className={cn(`flex items-center justify-center`)}>
+                    <li className={cn(`cursor-pointer text-2xl text-white`)}>
+                        {
+                            pages.map((page: SiteConfig['pages'][0]) => {
+                                return (
+                                    <Link href={page.path} key={page.path}>
+                                        <span>
+                                            {page.title}
+                                        </span>
+                                    </Link>
+                                );
+                            })
+                        }
+                    </li>
+                </ul>
+            </div>
+        </main>
     );
 }
 
