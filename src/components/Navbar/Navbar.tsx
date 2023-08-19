@@ -6,14 +6,18 @@ import Link from "next/link";
 import {HiOutlineMenu} from "react-icons/hi";
 import {cn} from "@/lib/utils";
 
+
+type TMobileNavMenu = {
+    isNavOpen?: boolean
+    pages: SiteConfig['pages']
+}
+
+
 export function Navbar() {
     const [isClient, setIsClient] = useState<boolean>(false);
-
-
     useLayoutEffect(() => {
         setIsClient(true);
     }, []);
-
 
     if (!isClient) return null;
     return isMobile ? <MobileNav/> : <DesktopNav/>;
@@ -42,9 +46,42 @@ const MobileNav = () => {
                     <HiOutlineMenu/>
                 </span>
             </main>
+
+            {isNavOpen ? <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/> : null}
         </nav>
     );
 }
+
+
+
+const MobileNavMenu = ({pages, isNavOpen} : TMobileNavMenu) => {
+    return (
+        <main className={cn(`absolute left-0 h-screen w-full bg-black`)}>
+            <div className={cn(`flex items-center`)}>
+                <ul className={cn(`flex items-center justify-center`)}>
+                    <li className={cn(`cursor-pointer text-2xl text-white`)}>
+                        {
+                            pages.map((page: SiteConfig['pages'][0]) => {
+                                return (
+                                    <Link href={page.path} key={page.path}>
+                                    <span>
+                                        {page.title}
+                                    </span>
+                                    </Link>
+                                );
+                            })
+                        }
+                    </li>
+                </ul>
+            </div>
+        </main>
+    );
+}
+
+
+
+
+
 
 const DesktopNav = () => {
 
