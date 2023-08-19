@@ -1,8 +1,12 @@
+import {Hero} from "@/components/Hero/Hero";
+import {cn} from "@/lib/utils";
 
 export default function Home() {
   return (
-    <main className="flex min-h-[200vh] flex-col items-center justify-between p-24">
-
+    <main className="">
+      <div className={cn(``)}>
+        <Hero />
+      </div>
     </main>
   )
 }
