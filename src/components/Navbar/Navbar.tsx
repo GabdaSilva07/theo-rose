@@ -11,7 +11,6 @@ import {IoClose} from "react-icons/io5";
 type TMobileNavMenu = {
     isNavOpen?: boolean
     pages: SiteConfig['pages']
-    setIsNavOpen: (isNavOpen: boolean) => void
 }
 
 
@@ -31,7 +30,8 @@ const MobileNav = () => {
     return (
         <nav className={`flex h-14 w-full justify-between bg-transparent px-2`}>
             <main className={`flex items-center`}>
-                <h1 className={`flex cursor-pointer text-center text-3xl text-primary`}>
+                <h1 className={cn(
+                    `flex cursor-pointer text-center text-3xl transition-colors duration-300 ease-in ${isNavOpen ? 'z-10 text-white ' : "text-primary"}`)}>
                     <Link href={`/`}>
                          <span>
                             {siteConfig.siteName.toUpperCase()}
@@ -39,51 +39,43 @@ const MobileNav = () => {
                     </Link>
                 </h1>
             </main>
-            {!isNavOpen ?
-                <main className={`flex items-center`}>
-                     <span className={`cursor-pointer text-4xl text-primary`} onClick={() => {
-                         setNavOpen(!isNavOpen)
-                     }}>
-                         <HiOutlineMenu/>
-                     </span>
-                </main> : null}
+            <main className={`flex items-center`}>
+                <span className={cn(
+                    `cursor-pointer ${isNavOpen ? "z-20 text-5xl text-white opacity-100 transition-opacity duration-500 ease-in-out" : "text-4xl text-primary opacity-0 "}`)}
+                    onClick={() => setNavOpen(!isNavOpen)}>
+                    <IoClose/>
+                </span>
+                {!isNavOpen &&
+                    <span className="cursor-pointer text-4xl text-primary" onClick={() => setNavOpen(!isNavOpen)}>
+                        <HiOutlineMenu/>
+                    </span>
+                }
+            </main>
 
-
-            {isNavOpen ? <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen} setIsNavOpen={setNavOpen}/> :
-                <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen} setIsNavOpen={setNavOpen}/>}
+            <MobileNavMenu pages={siteConfig.pages} isNavOpen={isNavOpen}/>
         </nav>
     );
 }
 
-
-const MobileNavMenu = ({pages, isNavOpen, setIsNavOpen}: TMobileNavMenu) => {
+const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
     return (
         <main className={cn(
-            `absolute left-0 h-screen w-full bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
-            <ul className={cn(`flex content-center items-center justify-center`)}>
-                {isNavOpen ?
-                    <main className={`absolute right-0 top-0 flex items-center`}>
-                          <span className={`cursor-pointer text-5xl text-white`} onClick={() => {
-                              setIsNavOpen(!isNavOpen)
-                          }}>
-                               <IoClose/>
-                        </span>
-                    </main> : null}
-                <li className={cn(`flex cursor-pointer flex-col items-center gap-4 text-2xl text-white`)}>
-                    {
-                        pages.map((page: SiteConfig['pages'][0]) => {
-                            return (
+            `absolute left-0 flex h-screen w-full items-center justify-center bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
+            <ul className={cn(`flex flex-col items-center gap-4`)}>
+                {
+                    pages.map((page: SiteConfig['pages'][0]) => {
+                        return (
+                            <li key={page.title} className={cn(`cursor-pointer text-2xl text-white`)}>
                                 <Link href={page.path} key={page.path}>
-                                        <span>
-                                            {page.title}
-                                        </span>
+                                    <span>
+                                        {page.title}
+                                    </span>
                                 </Link>
-                            );
-                        })
-                    }
-                </li>
+                            </li>
+                        );
+                    })
+                }
             </ul>
-
         </main>
     );
 }
@@ -143,6 +135,9 @@ const DesktopNav = () => {
                         })}
                     </li>
                 </ul>
+            </main>
+            <main>
+                {/*List of icons*/}
             </main>
         </nav>
 
