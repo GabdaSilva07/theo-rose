@@ -16,7 +16,6 @@ type TMobileNavMenu = {
     pages: SiteConfig['pages']
 }
 
-
 export function Navbar() {
     const [isClient, setIsClient] = useState<boolean>(false);
     const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
@@ -34,10 +33,10 @@ export function Navbar() {
 const MobileNav = () => {
     const [isNavOpen, setNavOpen] = useState<boolean>(false);
     return (
-        <nav className={`flex h-14 w-full justify-between bg-transparent px-2`}>
+        <nav className={`z-50 flex h-14 w-full justify-between bg-transparent px-2`}>
             <main className={`flex items-center`}>
                 <h1 className={cn(
-                    `flex cursor-pointer text-center text-3xl transition-colors duration-300 ease-in ${isNavOpen ? 'z-10 text-white ' : "text-primary"}`)}>
+                    `z-30 flex cursor-pointer text-center text-3xl transition-colors duration-300 ease-in ${isNavOpen ? ' text-white ' : "text-primary"}`)}>
                     <Link href={`/`}>
                          <span>
                             {siteConfig.siteName.toUpperCase()}
@@ -47,7 +46,7 @@ const MobileNav = () => {
             </main>
             <main className={`flex items-center`}>
                 <span className={cn(
-                    `cursor-pointer ${isNavOpen ? "z-20 text-5xl text-white opacity-100 transition-opacity duration-500 ease-in-out" : "text-4xl text-primary opacity-0 "}`)}
+                    `cursor-pointer ${isNavOpen ? "z-40 text-5xl text-white opacity-100 transition-opacity duration-500 ease-in-out" : "text-4xl text-primary opacity-0 "}`)}
                     onClick={() => setNavOpen(!isNavOpen)}>
                     <IoClose/>
                 </span>
@@ -81,13 +80,13 @@ const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
 
     return (
         <main className={cn(
-            `fixed left-0 flex h-screen w-full flex-col items-center justify-center bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
+            `fixed left-0 z-20 flex h-screen w-full flex-col items-center justify-center bg-primary transition-transform duration-300 ease-in-out ${isNavOpen ? 'translate-x-0' : '-translate-x-full'}`)}>
 
             <ul className={cn(`flex flex-col items-center gap-4`)}>
                 {
                     pages.map((page: SiteConfig['pages'][0]) => {
                         return (
-                            <li key={page.title} className={cn(`cursor-pointer text-2xl text-white`)}>
+                            <li key={page.title} className={cn(`z-20 cursor-pointer text-2xl text-white`)}>
                                 <Link href={page.path}>
                                     <span>
                                         {page.title}
@@ -99,7 +98,7 @@ const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
                 }
             </ul>
 
-            <div className={cn(`absolute bottom-0 flex w-full flex-col justify-end pb-4`)}>
+            <main className={cn(`absolute bottom-0 flex w-full flex-col justify-end pb-4`)}>
                 <div className={cn(`my-2 flex flex-col items-center`)}>
                     <span className={cn(`text-white`)}><BiSolidPhone/></span>
                     <span className={cn(`text-sm text-white`)}>{siteConfig.mobile}</span>
@@ -112,7 +111,7 @@ const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
                     <span className={cn(`text-white`)}><BsFillClockFill/></span>
                     <span className={cn(`text-sm text-white`)}>{siteConfig.openingHours}</span>
                 </div>
-            </div>
+            </main>
         </main>
     );
 }
@@ -125,7 +124,7 @@ const DesktopNav = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 500) {  // Adjust this value as needed
+            if (window.scrollY > 800) {  // Adjust this value as needed
                 setIsScrolled(true);
             } else {
                 setIsScrolled(false);
@@ -141,9 +140,9 @@ const DesktopNav = () => {
 
     return (
         <nav className={cn(
-            `fixed top-0 w-full transition-colors duration-300 ease-in-out ${isScrolled ? 'bg-white' : 'bg-transparent'} flex h-16 justify-between px-4`)}>
+            `fixed top-0 z-50 w-full transition-colors duration-300 ease-in-out ${isScrolled ? 'bg-white bg-opacity-60' : 'bg-transparent'} flex h-16 justify-between px-4`)}>
             <main className={`flex items-center`}>
-                <h1 className={`flex cursor-pointer text-center text-3xl text-primary`}>
+                <h1 className={`flex cursor-pointer text-center text-3xl ${isScrolled ? 'border-primary text-primary' : 'border-white text-white'}`}>
                     <Link href={`/`}>
                  <span>
                     {siteConfig.siteName.toUpperCase()}
@@ -161,8 +160,8 @@ const DesktopNav = () => {
                                     href={page.path}
                                     key={page.path}
                                     className={cn(
-                                        `mx-4 border-b-2 border-white transition-all duration-200 ease-in hover:border-primary`
-                                    )}
+                                        `mx-4 border-b-2 border-transparent transition-all duration-200 ease-in ${isScrolled ? 'border-transparent text-primary hover:border-primary' : 'text-white hover:border-white'}
+                                    `)}
                                 >
                                       <span>
                                          {page.title}
@@ -173,7 +172,6 @@ const DesktopNav = () => {
                     </li>
                 </ul>
             </main>
-
         </nav>
 
     );

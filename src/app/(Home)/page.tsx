@@ -4,7 +4,7 @@ import {siteConfig} from "@/Config/siteConfig";
 
 export default function Home() {
     return (
-        <main className="">
+        <main className="h-[200vh] w-full">
             <div className={cn(``)}>
                 <Hero title={siteConfig.hero.title} btn={siteConfig.hero.btn} images={siteConfig.hero.images}/>
             </div>
