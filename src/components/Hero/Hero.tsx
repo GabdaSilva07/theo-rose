@@ -1,6 +1,6 @@
-import {Button} from "../ui/button";
 import Image from "next/image";
 import {SiteConfig} from "@/Config/siteConfig";
+import {Button} from "@/components/ui/button";
 
 
 type THero = SiteConfig['hero']
