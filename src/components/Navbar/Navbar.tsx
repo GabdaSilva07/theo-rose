@@ -1,6 +1,6 @@
 'use client'
 import {isMobile} from 'react-device-detect'
-import {useEffect, useLayoutEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {siteConfig, SiteConfig} from "@/Config/siteConfig";
 import Link from "next/link";
 import {HiOutlineMenu} from "react-icons/hi";
@@ -19,12 +19,15 @@ type TMobileNavMenu = {
 
 export function Navbar() {
     const [isClient, setIsClient] = useState<boolean>(false);
-    useLayoutEffect(() => {
+    const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
+
+    useEffect(() => {
         setIsClient(true);
+        setIsMobileDevice(isMobile);
     }, []);
 
     if (!isClient) return null;
-    return isMobile ? <MobileNav/> : <DesktopNav/>;
+    return isMobileDevice ? <MobileNav/> : <DesktopNav/>;
 }
 
 

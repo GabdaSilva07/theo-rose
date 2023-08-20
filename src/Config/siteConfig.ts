@@ -1,6 +1,6 @@
 export type SiteConfig = typeof siteConfig
 export type AppConfig = typeof appConfig
-
+import HeroImage from '../media/Hero/LivingRoom1.png'
 
 export const siteConfig = {
     //business details
@@ -29,7 +29,21 @@ export const siteConfig = {
             title: 'Contact Us',
             path: '/contact',
         }
-    ]
+    ],
+
+    //Hero
+    hero: {
+        title: 'SHORT STAY BREAKS\n' +
+            'BLISSFUL ESCAPE\n',
+        btn: 'View Portfolio',
+        images: [
+            {
+                alt: 'hero image',
+                image: HeroImage,
+            }
+        ]
+    }
+
 }
 
 const appConfig = {
