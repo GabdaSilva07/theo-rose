@@ -39,7 +39,7 @@ export const siteConfig = {
         images: [
             {
                 alt: 'hero image',
-                image: HeroImage,
+                src: HeroImage,
             }
         ]
     }
