@@ -1,6 +1,6 @@
 'use client'
 import {isMobile} from 'react-device-detect'
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import {siteConfig, SiteConfig} from "@/Config/siteConfig";
 import Link from "next/link";
 import {HiOutlineMenu} from "react-icons/hi";
@@ -117,18 +117,12 @@ const MobileNavMenu = ({pages, isNavOpen}: TMobileNavMenu) => {
 }
 
 
-const DesktopNav = () => {
+const useScrollPosition = () => {
+    const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-    const [isScrolled, setIsScrolled] = useState<boolean>(false);
-
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 800) {  // Adjust this value as needed
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            setScrollPosition(window.scrollY);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -138,7 +132,15 @@ const DesktopNav = () => {
         };
     }, []);
 
+    return scrollPosition;
+};
+
+const DesktopNav = () => {
+    const scrollPosition = useScrollPosition();
+    const isScrolled = scrollPosition > 800; // Adjust this value as needed
+
     return (
+        // eslint-disable-next-line tailwindcss/migration-from-tailwind-2
         <nav className={cn(
             `fixed top-0 z-50 w-full transition-colors duration-300 ease-in-out ${isScrolled ? 'bg-white bg-opacity-60' : 'bg-transparent'} flex h-16 justify-between px-4`)}>
             <main className={`flex items-center`}>
@@ -173,9 +175,10 @@ const DesktopNav = () => {
                 </ul>
             </main>
         </nav>
-
     );
 }
+
+export default DesktopNav;
 
 
 
