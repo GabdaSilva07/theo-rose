@@ -17,15 +17,15 @@ type TMobileNavMenu = {
 }
 
 export function Navbar() {
-    const [isClient, setIsClient] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isMobileDevice, setIsMobileDevice] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsClient(true);
         setIsMobileDevice(isMobile);
+        setIsLoading(false);
     }, []);
 
-    if (!isClient) return null;
+    if (isLoading) return <div className={cn('hidden')} >Loading...</div>;
     return isMobileDevice ? <MobileNav/> : <DesktopNav/>;
 }
 
