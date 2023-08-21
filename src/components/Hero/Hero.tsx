@@ -16,7 +16,7 @@ export function Hero({title, btn, images} : THero) {
             {/* Title */}
             <h1 className="relative z-10 mb-4 text-5xl font-bold text-white">{title}</h1>
 
-            {/* Button */}
+
             <Button className="relative z-10 bg-white px-6 py-2 text-primary transition duration-300">
                 {btn}
             </Button>
