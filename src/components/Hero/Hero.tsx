@@ -18,7 +18,7 @@ export function Hero({ title, btn, images }: THero) {
 
             <h1 className="relative z-10 mb-4 text-5xl font-bold text-white">{title}</h1>
 
-            <Button className={cn(`relative z-10 mt-4 border-2 border-white bg-transparent text-2xl text-white transition-colors duration-300 hover:bg-white md:px-10 md:py-6 md:hover:text-primary`)}>
+            <Button className={cn(`relative z-10 mt-4 border-2 border-white bg-transparent px-10 py-6 text-xl text-white transition-colors duration-300 hover:bg-white md:text-2xl md:hover:text-primary`)}>
                 {btn}
             </Button>
         </div>
