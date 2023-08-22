@@ -21,7 +21,7 @@ const  MobileNav = () => {
         <nav className={`z-50 flex h-14 w-full justify-between bg-transparent px-2`}>
             <main className={`flex items-center`}>
                 <h1 className={cn(
-                    `z-30 flex cursor-pointer text-center text-3xl transition-colors duration-300 ease-in ${isNavOpen ? ' text-white ' : "text-primary"}`)}>
+                    `z-30 flex cursor-pointer text-center text-3xl text-white transition-colors duration-300  ease-in `)}>
                     <Link href={`/`}>
                          <span>
                             {siteConfig.siteName.toUpperCase()}
@@ -36,7 +36,7 @@ const  MobileNav = () => {
                     <IoClose/>
                 </span>
                 {!isNavOpen &&
-                    <span className="cursor-pointer text-4xl text-primary" onClick={() => setNavOpen(!isNavOpen)}>
+                    <span className="z-40 cursor-pointer text-4xl text-white" onClick={() => setNavOpen(!isNavOpen)}>
                         <HiOutlineMenu/>
                     </span>
                 }
