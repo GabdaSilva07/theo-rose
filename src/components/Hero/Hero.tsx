@@ -10,11 +10,11 @@ type THero = SiteConfig['hero']
 export function Hero({ title, btn, images }: THero) {
 
     return (
-        <div className="absolute top-0 flex h-screen w-screen flex-col items-center justify-center bg-black">
+        <div className="absolute top-0 flex h-screen md:h-[80vh] w-screen flex-col items-center justify-center bg-black">
 
-            <Image className="absolute h-screen w-screen object-cover object-center" src={images[0].src} alt={images[0].alt} priority fill />
+            <Image className="relative h-screen w-screen object-cover object-center" src={images[0].src} alt={images[0].alt} priority fill />
 
-            <div className="absolute h-screen w-screen bg-black opacity-20"></div>
+            <div className="absolute h-screen md:h-[80vh] w-screen bg-black opacity-10"></div>
 
             <h1 className="relative z-10 mb-4 text-5xl font-bold text-white">{title}</h1>
 
